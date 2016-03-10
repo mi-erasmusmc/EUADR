@@ -20,7 +20,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.euretos.brain.Brain;
 import com.euretos.brain.Path;
-import com.euretos.brain.PathElement;
 import com.euretos.brain.PathElt;
 import com.euretos.brain.PathResponse;
 import com.opencsv.CSVReader;
