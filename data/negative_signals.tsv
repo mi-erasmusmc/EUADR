@@ -1,0 +1,65 @@
+liver failure, acute	R03AC13	Formoterol
+liver failure, acute	S01ED05	Carteolol
+liver failure, acute	G04CA03	Terazosin
+liver failure, acute	N04BA02	Levodopa and decarboxylase inhibitor
+liver failure, acute	C01DA02	Glyceryl trinitrate
+drug-induced liver injury	R03AC13	Formoterol
+drug-induced liver injury	S01ED05	Carteolol
+drug-induced liver injury	G04CA03	Terazosin
+drug-induced liver injury	N04BA02	Levodopa and decarboxylase inhibitor
+drug-induced liver injury	C01DA02	Glyceryl trinitrate
+Acute myocardial infarction	A10AD01	Insulin (human)
+Acute myocardial infarction	B03AA07	Ferrous sulfate
+Acute myocardial infarction	J01CR02	Amoxicillin and clavulanic acid
+Acute myocardial infarction	J05AB11	Valaciclovir
+Acute myocardial infarction	C10AB04	Gemfibrozil
+Acute renal failure	R01AD09	Mometasone
+Acute renal failure	H03AA01	Levothyroxine sodium
+Acute renal failure	R06AX26	Fexofenadine
+Acute renal failure	N04BA02	Levodopa and decarboxylase inhibitor
+Acute renal failure	B03AA07	Ferrous sulfate
+Anaphylactic shock	N06AX11	Mirtazapine
+Anaphylactic shock	H03AA01	Levothyroxine sodium
+Anaphylactic shock	C02AC01	Clonidine
+Anaphylactic shock	C02CA04	Doxazosin
+Anaphylactic shock	N05BA04	Oxazepam
+Bullous eruptions	C01BC03	Propafenone
+Bullous eruptions	C07AB03	Atenolol
+Bullous eruptions	R03BB01	Ipratropium bromide
+Bullous eruptions	R03BB04	Tiotropium bromide
+Bullous eruptions	C08CA02	Felodipine
+Cardiac valve fibrosis	N06AB08	Fluvoxamine
+Cardiac valve fibrosis	L04AX03	Methotrexate
+Cardiac valve fibrosis	C09CA04	Irbesartan
+Cardiac valve fibrosis	C03CA01	Furosemide
+Cardiac valve fibrosis	G03CA03	Estradiol
+Neutropenia	C07AA07	Sotalol
+Neutropenia	H03AA01	Levothyroxine sodium
+Neutropenia	C10AA05	Atorvastatin
+Neutropenia	C01DA14	Isosorbide mononitrate
+Neutropenia	G04CA02	Tamsulosin
+agranulocytosis	C07AA07	Sotalol
+agranulocytosis	H03AA01	Levothyroxine sodium
+agranulocytosis	C10AA05	Atorvastatin
+agranulocytosis	C01DA14	Isosorbide mononitrate
+agranulocytosis	G04CA02	Tamsulosin
+Aplastic anaemia	C09CA04	Irbesartan
+Aplastic anaemia	C10AA04	Fluvastatin
+Aplastic anaemia	S01EE01	Latanoprost
+Aplastic anaemia	S01ED01	Timolol
+Aplastic anaemia	R06AX27	Desloratadine
+pancytopenia	C09CA04	Irbesartan
+pancytopenia	C10AA04	Fluvastatin
+pancytopenia	S01EE01	Latanoprost
+pancytopenia	S01ED01	Timolol
+pancytopenia	R06AX27	Desloratadine
+Rhabdomyolysis	G03CA03	Estradiol
+Rhabdomyolysis	C02CA04	Doxazosin
+Rhabdomyolysis	A10BB12	Glimepiride
+Rhabdomyolysis	S01ED01	Timolol
+Rhabdomyolysis	C01DA02	Glyceryl trinitrate
+Upper gastrointestinal bleeding	R06AX26	Fexofenadine
+Upper gastrointestinal bleeding	C10AA01	Simvastatin
+Upper gastrointestinal bleeding	S01EC03	Dorzolamide
+Upper gastrointestinal bleeding	L02AE03	Goserelin
+Upper gastrointestinal bleeding	N05CF01	Zopiclone

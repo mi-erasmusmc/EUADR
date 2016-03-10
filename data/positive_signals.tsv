@@ -1,0 +1,63 @@
+liver failure, acute	N03AF01	Carbamazepine	II
+liver failure, acute	N03AG01	Valproic acid	II
+liver failure, acute	M01AX17	Nimesulide	II
+liver failure, acute	J01CR02	Amoxicillin	II
+liver failure, acute	J01CR02	clavulanic acid	II
+liver failure, acute	A07EC01	Sulfasalazine	II
+drug-induced liver injury	N03AF01	Carbamazepine	II
+drug-induced liver injury	N03AG01	Valproic acid	II
+drug-induced liver injury	M01AX17	Nimesulide	II
+drug-induced liver injury	J01CR02	Amoxicillin	II
+drug-induced liver injury	J01CR02	clavulanic acid	II
+drug-induced liver injury	A07EC01	Sulfasalazine	II
+Acute myocardial infarction	M01AH02	Rofecoxib	I
+Acute myocardial infarction	A10BG02	Rosiglitazone	I
+Acute myocardial infarction	G03AA07	Levonorgestrel	II
+Acute myocardial infarction	G03AA07	estrogen	II
+Acute myocardial infarction	N02CC01	Sumatriptan	II
+Acute myocardial infarction	M01AH03	Valdecoxib	I
+Acute renal failure	C09AA01	Captopril	II
+Acute renal failure	M01AE01	Ibuprofen	II
+Acute renal failure	N02BE01	acetaminophen	II
+Acute renal failure	J01MA02	Ciprofloxacin	II
+Acute renal failure	N05AN01	Lithium	II
+Anaphylactic shock	B01AC06	acetylsalicylic acid	II
+Anaphylactic shock	N02BE01	acetaminophen	II
+Anaphylactic shock	J01CA04	Amoxicillin	II
+Anaphylactic shock	J01MA02	Ciprofloxacin	II
+Anaphylactic shock	M01AB05	Diclofenac	II
+Bullous eruptions	N03AF01	Carbamazepine	II
+Bullous eruptions	J01EE01	Sulfamethoxazole	II
+Bullous eruptions	J01EE01	trimethoprim	II
+Bullous eruptions	N03AX09	Lamotrigine	II
+Bullous eruptions	M04AA01	Allopurinol	II
+Bullous eruptions	C03CA01	Furosemide	II
+Neutropenia	H03BB02	Thiamazole	II
+Neutropenia	B01AC05	Ticlopidine	II
+Neutropenia	C09AA01	Captopril	II
+Neutropenia	N03AF01	Carbamazepine	II
+Neutropenia	N03AG01	Valproic acid	II
+agranulocytosis	H03BB02	Thiamazole	II
+agranulocytosis	B01AC05	Ticlopidine	II
+agranulocytosis	C09AA01	Captopril	II
+agranulocytosis	N03AF01	Carbamazepine	II
+agranulocytosis	N03AG01	Valproic acid	II
+Aplastic anaemia	B01AC05	Ticlopidine	II
+Aplastic anaemia	N03AF01	Carbamazepine	II
+Aplastic anaemia	H03BB02	Thiamazole	II
+Aplastic anaemia	M04AA01	Allopurinol	II
+Aplastic anaemia	C09AA01	Captopril	II
+pancytopenia	B01AC05	Ticlopidine	II
+pancytopenia	N03AF01	Carbamazepine	II
+pancytopenia	H03BB02	Thiamazole	II
+pancytopenia	M04AA01	Allopurinol	II
+pancytopenia	C09AA01	Captopril	II
+Rhabdomyolysis	C10AA07	Rosuvastatin	I
+Rhabdomyolysis	C10AA05	Atorvastatin	I
+Rhabdomyolysis	C10AA03	Pravastatin	I
+Rhabdomyolysis	C10AA01	Simvastatin	I
+Upper gastrointestinal bleeding	N02BA01/B01AC06	Aspirin	I
+Upper gastrointestinal bleeding	M01AB01	Indometacin	I
+Upper gastrointestinal bleeding	B01AB01	Heparin	I
+Upper gastrointestinal bleeding	H02AB06	Prednisolone	II
+Upper gastrointestinal bleeding	M01AE01	Ibuprofen	I
