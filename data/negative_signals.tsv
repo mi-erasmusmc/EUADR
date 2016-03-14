@@ -1,22 +1,26 @@
 liver failure, acute	R03AC13	Formoterol
 liver failure, acute	S01ED05	Carteolol
 liver failure, acute	G04CA03	Terazosin
-liver failure, acute	N04BA02	Levodopa and decarboxylase inhibitor
+liver failure, acute	N04BA02	Levodopa
+liver failure, acute	N04BA02	decarboxylase inhibitor
 liver failure, acute	C01DA02	Glyceryl trinitrate
 drug-induced liver injury	R03AC13	Formoterol
 drug-induced liver injury	S01ED05	Carteolol
 drug-induced liver injury	G04CA03	Terazosin
-drug-induced liver injury	N04BA02	Levodopa and decarboxylase inhibitor
+drug-induced liver injury	N04BA02	Levodopa
+drug-induced liver injury	N04BA02	decarboxylase inhibitor
 drug-induced liver injury	C01DA02	Glyceryl trinitrate
 Acute myocardial infarction	A10AD01	Insulin (human)
 Acute myocardial infarction	B03AA07	Ferrous sulfate
-Acute myocardial infarction	J01CR02	Amoxicillin and clavulanic acid
+Acute myocardial infarction	J01CR02	Amoxicillin
+Acute myocardial infarction	J01CR02	clavulanic acid
 Acute myocardial infarction	J05AB11	Valaciclovir
 Acute myocardial infarction	C10AB04	Gemfibrozil
 Acute renal failure	R01AD09	Mometasone
 Acute renal failure	H03AA01	Levothyroxine sodium
 Acute renal failure	R06AX26	Fexofenadine
-Acute renal failure	N04BA02	Levodopa and decarboxylase inhibitor
+Acute renal failure	N04BA02	Levodopa
+Acute renal failure	N04BA02	decarboxylase inhibitor
 Acute renal failure	B03AA07	Ferrous sulfate
 Anaphylactic shock	N06AX11	Mirtazapine
 Anaphylactic shock	H03AA01	Levothyroxine sodium
@@ -28,11 +32,11 @@ Bullous eruptions	C07AB03	Atenolol
 Bullous eruptions	R03BB01	Ipratropium bromide
 Bullous eruptions	R03BB04	Tiotropium bromide
 Bullous eruptions	C08CA02	Felodipine
-Cardiac valve fibrosis	N06AB08	Fluvoxamine
-Cardiac valve fibrosis	L04AX03	Methotrexate
-Cardiac valve fibrosis	C09CA04	Irbesartan
-Cardiac valve fibrosis	C03CA01	Furosemide
-Cardiac valve fibrosis	G03CA03	Estradiol
+Cardiac fibrosis	N06AB08	Fluvoxamine
+Cardiac fibrosis	L04AX03	Methotrexate
+Cardiac fibrosis	C09CA04	Irbesartan
+Cardiac fibrosis	C03CA01	Furosemide
+Cardiac fibrosis	G03CA03	Estradiol
 Neutropenia	C07AA07	Sotalol
 Neutropenia	H03AA01	Levothyroxine sodium
 Neutropenia	C10AA05	Atorvastatin
