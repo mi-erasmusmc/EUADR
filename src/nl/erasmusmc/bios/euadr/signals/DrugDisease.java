@@ -1,20 +1,22 @@
 package nl.erasmusmc.bios.euadr.signals;
 
 public class DrugDisease {
-    private String drug = null;
+    private String drugName = null;
+    private String drugId = null;
     private String disease = null;
     
-    public DrugDisease(String drug, String disease) {
-	setDrug(drug);
+    public DrugDisease(String drugName, String drugId, String disease) {
+	setDrugName(drugName);
+	setDrugId(drugId);
 	setDisease(disease);
     }
 
-    public String getDrug() {
-        return drug;
+    public String getDrugName() {
+        return drugName;
     }
     
-    public void setDrug(String drug) {
-        this.drug = drug;
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
     }
     
     public String getDisease() {
@@ -23,5 +25,13 @@ public class DrugDisease {
     
     public void setDisease(String disease) {
         this.disease = disease;
+    }
+
+    public String getDrugId() {
+	return drugId;
+    }
+
+    public void setDrugId(String drugId) {
+	this.drugId = drugId;
     }
 }
