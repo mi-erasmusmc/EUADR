@@ -7,16 +7,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.cli.DefaultParser;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -27,7 +26,6 @@ import com.euretos.brainv2.Concept;
 import com.euretos.brainv2.ConceptQuery;
 import com.euretos.brainv2.DirectRelationshipResponse;
 import com.euretos.brainv2.PathElement;
-import com.euretos.brainv2.PredicateType;
 import com.euretos.brainv2.Relation;
 import com.euretos.brainv2.RelationElt;
 import com.euretos.brainv2.Utils;
@@ -36,8 +34,8 @@ import com.opencsv.CSVReader;
 public class Generate {
 
     final static Integer MAXSIZE = 20;
-    final static String[] semanticTypes = new String[]{"Chemicals & Drugs",  "Anatomy", "Genes & Molecular Sequences", "Disorders", "Physiology"};
-    static Map<String, PredicateType> predicates = null;
+    final static String[] semanticGroups = new String[]{"Chemicals & Drugs",  "Anatomy", "Genes & Molecular Sequences", "Disorders", "Physiology"};
+    //static Map<String, PredicateType> predicates = null;
 
     public static void main(String[] args) {
 	Options options = new Options().addOption("server", true, "brain URL").addOption("user", true, "username").addOption("password", true, "password")
@@ -48,7 +46,7 @@ public class Generate {
 	    CommandLine cmd = parser.parse(options, args);
 	    String inputFile = cmd.getOptionValue("input");
 	    String outputDirectory = cmd.getOptionValue("outputDirectory");
-	    String server = cmd.hasOption("server") ? cmd.getOptionValue("server") : "https://www.euretos-brain.com/spine-ws";
+	    String server = cmd.hasOption("server") ? cmd.getOptionValue("server") : "http://lagavulin:8088/spine-ws";
 	    String user = cmd.getOptionValue("user");
 	    String password = cmd.getOptionValue("password");
 
@@ -62,13 +60,6 @@ public class Generate {
 	}
     }
 
-    /**
-     * @param inputFile
-     * @param outputDirectory
-     * @param server
-     * @param user
-     * @param password
-     */
     private static void process(String inputFile, String outputDirectory, String server, String user, String password) {
 	List<DrugDisease> drugDiseasePairs = new ArrayList<DrugDisease>();
 
@@ -85,24 +76,26 @@ public class Generate {
 
 	Brain brain = new Brain(server, user, password);
 	brain.connect();
-
-	predicates = brain.getPredicates();
+	brain.getSemanticTypes();
+	brain.getSemanticCategories();
+	brain.getPredicates();
 
 	/*
 	 * Generate the triples from a drug to a number of semantic groups
 	 */
-	//	for (String drugName : getUniqueDrugNames(drugDiseasePairs)){
-	//	    System.out.println( "generating triples for drug " + drugName );
-	//	    generateTriples( brain, outputDirectory, "Disease - Total occurrences (B-to-X) - ", drugName, "Chemicals & Drugs" );
-	//	}
+	for (String drugName : getUniqueDrugNames(drugDiseasePairs)){
+	    String drugId = getDrugId(drugName, drugDiseasePairs);
+	    System.out.println( "generating triples for drug " + drugName );
+	    generateTriples( brain, outputDirectory,  drugName.replaceAll("/", "_") + "- (A-to-X) - Disease", drugId, "Chemicals & Drugs" );
+	}
 
 	/*
 	 * Generate the triples from a disease to a number of semantic groups
 	 */
-	//	for (String diseaseName : getUniqueDiseaseNames(drugDiseasePairs)){
-	//	    System.out.println( "generating triples for disease " + diseaseName );
-	//	    generateTriples( brain, outputDirectory, "Drug - Total occurrences (B-to-X) - ", diseaseName, "Disorders" );
-	//	}
+//	for (String diseaseName : getUniqueDiseaseNames(drugDiseasePairs)){
+//	    System.out.println( "generating triples for disease " + diseaseName );
+//	    generateTriples( brain, outputDirectory, "Drug - (X-to-B) - " + diseaseName.replaceAll("/", "_"), diseaseName, "Disorders" );
+//	}
 
 	/*
 	 * generate the indirectly connections between drug and disease
@@ -199,12 +192,12 @@ public class Generate {
 			    for (int i = 0 ; i < 10 ; i++){
 				if (i < AXpredicates.size()){
 				    row.createCell(c++).setCellValue(AXtriples.get(i));
-				    row.createCell(c++).setCellValue(getPredicate(AXpredicates.get(i)));
+				    row.createCell(c++).setCellValue(brain.getPredicate(AXpredicates.get(i)).getName());
 				}
 
 				if (i < XBpredicates.size()){
 				    row.createCell(c++).setCellValue(XBtriples.get(i));
-				    row.createCell(c++).setCellValue(getPredicate(XBpredicates.get(i)));
+				    row.createCell(c++).setCellValue(brain.getPredicate(XBpredicates.get(i)).getName());
 				}
 			    }
 			}
@@ -223,16 +216,27 @@ public class Generate {
 	}
     }
 
-    private static String getPredicate(String id) {
-	PredicateType predicateType = predicates.get(id);
-	return predicateType.getName();
-    }
-
-
     private static HashSet<String> getUniqueDrugNames(List<DrugDisease> drugDiseasePairs) {
 	HashSet<String> result = new HashSet<String>();
 	for (DrugDisease drugDisease : drugDiseasePairs){
 	    result.add(drugDisease.getDrugName());
+	}
+	return result;
+    }
+    
+    private static String getDrugId(String name, List<DrugDisease> drugDiseasePairs) {
+	for (DrugDisease drugDisease : drugDiseasePairs){
+	    if (drugDisease.getDrugName().equalsIgnoreCase(name)){
+		return drugDisease.getDrugId();
+	    }
+	}
+	return null;
+    }
+
+    private static HashSet<String> getUniqueDrugIds(List<DrugDisease> drugDiseasePairs) {
+	HashSet<String> result = new HashSet<String>();
+	for (DrugDisease drugDisease : drugDiseasePairs){
+	    result.add(drugDisease.getDrugId());
 	}
 	return result;
     }
@@ -245,76 +249,74 @@ public class Generate {
 	return result;
     }
 
-    //    private static void generateTriples(Brain brain, String directory, String label, String sourceConceptName, String sourceSemanticType) {
-    //	try {
-    //
-    //	    List<String> sourceUuids = brain.getUUID( sourceConceptName, sourceSemanticType );
-    //	    if ( sourceUuids == null || sourceUuids.isEmpty() ){
-    //		throw new MappingException( sourceConceptName + " not mapped" );
-    //	    }
-    //
-    //
-    //	    /* generate the required output */
-    //
-    //	    String b2xFileName = directory + "/" + label + sourceConceptName.replaceAll("/", "_") + " - all categories.xlsx";
-    //	    try {
-    //		/* total occurrances (B-to-X) - <conceptName> - all categories */
-    //		Workbook wb = new XSSFWorkbook();
-    //		for (String sourceUuid : sourceUuids){
-    //		    for (String semanticType : semanticTypes){
-    //			XSSFSheet sheet = (XSSFSheet) wb.createSheet(semanticType);
-    //
-    //			createHeader( sheet, new String[]{ "pathWeight", 
-    //				"tier0Concept/uuid", "tier0Concept/name", "tier0Concept/category", 
-    //				"tier1Concept/uuid", "tier1Concept/name", "tier1Concept/category", 
-    //				"tier01TripleInformation/0/tripleUuid", "tier01TripleInformation/0/predicateName", 
-    //				"tier01TripleInformation/1/tripleUuid", "tier01TripleInformation/1/predicateName", 
-    //				"tier01TripleInformation/2/tripleUuid", "tier01TripleInformation/2/predicateName", 
-    //				"tier01TripleInformation/3/tripleUuid", "tier01TripleInformation/3/predicateName", 
-    //				"tier01TripleInformation/4/tripleUuid", "tier01TripleInformation/4/predicateName", 
-    //				"tier01TripleInformation/5/tripleUuid", "tier01TripleInformation/5/predicateName", 
-    //				"tier01TripleInformation/6/tripleUuid", "tier01TripleInformation/6/predicateName", 
-    //				"tier01TripleInformation/7/tripleUuid", "tier01TripleInformation/7/predicateName", 
-    //				"tier01TripleInformation/8/tripleUuid", "tier01TripleInformation/8/predicateName" } );
-    //
-    //			int page = 0;
-    //			int count = 0;
-    //			PathResponse directPaths = null;
-    //			do {
-    //			    directPaths = brain.searchKeywordToSemanticType("direct", false, true, sourceUuid, semanticType, "pwd", "DESC", page, 1000);
-    //			    for (Path path : directPaths.getPaths()){
-    //				count++;
-    //				//System.out.println(semanticType + ", " + count + "," + path.getTargetName());
-    //				XSSFRow row = sheet.createRow(count);
-    //				int c = 0;
-    //				row.createCell(c++).setCellValue(path.getPathWeight());
-    //				row.createCell(c++).setCellValue(path.getTargetUuid());
-    //				row.createCell(c++).setCellValue(path.getTargetName());
-    //				row.createCell(c++).setCellValue(semanticType);
-    //				row.createCell(c++).setCellValue(path.getSourceUuid());
-    //				row.createCell(c++).setCellValue(path.getSourceName());
-    //				row.createCell(c++).setCellValue(sourceSemanticType);
-    //				for (PathElt pathElt : path.getTriples()){
-    //				    row.createCell(c++).setCellValue(pathElt.getTripleUuid());
-    //				    row.createCell(c++).setCellValue(pathElt.getPredicateName());
-    //				}
-    //			    }
-    //			    page++;
-    //			} while (directPaths != null && directPaths.getFirst() != null && page < directPaths.getTotalPages());
-    //		    }
-    //		}
-    //
-    //		wb.write(new FileOutputStream(b2xFileName));
-    //		wb.close();
-    //	    } catch (Exception e){
-    //		System.err.println("error in processing " + b2xFileName);
-    //		e.printStackTrace();
-    //	    }
-    //
-    //	} catch (MappingException e1) {
-    //	    System.err.println(e1.getMessage());
-    //	}
-    //    }
+    private static void generateTriples(Brain brain, String directory, String label, String sourceConceptName, String sourceSemanticType) {
+	try {
+	    ConceptQuery sourceConceptQuery = new ConceptQuery(sourceConceptName, null, null, Arrays.asList(new String[]{sourceSemanticType}), null, null);
+	    Set<Concept> sourceConcepts = brain.getConceptsSearch(sourceConceptQuery);
+	    Set<String> sourceConceptIds = Utils.getConceptIds(sourceConcepts);
+	    Set<String> targetSemanticGroups = new HashSet<String>();
+	    
+	    /* generate the required output */
+	    String b2xFileName = directory + "/" + label + ".xlsx";
+
+	    /* total occurrences (B-to-X) - <conceptName> - all categories */
+	    Workbook wb = new XSSFWorkbook();
+
+	    for (String semanticGroup : semanticGroups){
+		XSSFSheet sheet = (XSSFSheet) wb.createSheet(semanticGroup);
+		targetSemanticGroups.clear();
+		targetSemanticGroups.add(semanticGroup);
+
+		createHeader( sheet, new String[]{ "pathWeight", 
+			"tier0Concept/uuid", "tier0Concept/name", "tier0Concept/category", 
+			"tier1Concept/uuid", "tier1Concept/name", "tier1Concept/category", 
+			"tier01TripleInformation/0/tripleUuid", "tier01TripleInformation/0/predicateName", 
+			"tier01TripleInformation/1/tripleUuid", "tier01TripleInformation/1/predicateName", 
+			"tier01TripleInformation/2/tripleUuid", "tier01TripleInformation/2/predicateName", 
+			"tier01TripleInformation/3/tripleUuid", "tier01TripleInformation/3/predicateName", 
+			"tier01TripleInformation/4/tripleUuid", "tier01TripleInformation/4/predicateName", 
+			"tier01TripleInformation/5/tripleUuid", "tier01TripleInformation/5/predicateName", 
+			"tier01TripleInformation/6/tripleUuid", "tier01TripleInformation/6/predicateName", 
+			"tier01TripleInformation/7/tripleUuid", "tier01TripleInformation/7/predicateName", 
+			"tier01TripleInformation/8/tripleUuid", "tier01TripleInformation/8/predicateName" } );
+
+		int page = 0;
+		int count = 0;
+		boolean last = false;
+		do {
+		    DirectRelationshipResponse response = brain.getConceptToSemanticDirect(sourceConceptIds, targetSemanticGroups, null, page, 100);
+		    last = response.getLast();
+
+		    for (RelationElt triple : response.getContent()){
+			count++;
+			XSSFRow row = sheet.createRow(count);
+			int c = 0;
+			row.createCell(c++).setCellValue(triple.getScore());
+			row.createCell(c++).setCellValue(triple.getConcepts().get(1).getId());
+			row.createCell(c++).setCellValue(triple.getConcepts().get(1).getName());
+			row.createCell(c++).setCellValue(semanticGroup);
+			row.createCell(c++).setCellValue(triple.getConcepts().get(0).getId());
+			row.createCell(c++).setCellValue(triple.getConcepts().get(1).getName());
+			row.createCell(c++).setCellValue(sourceSemanticType);
+			for (Relation relation : triple.getRelationships()){
+			    for (String predicateId : relation.getPredicateIds()){
+				row.createCell(c++).setCellValue(predicateId);
+				row.createCell(c++).setCellValue(brain.getPredicate(predicateId).getName());
+			    }
+			}
+		    }
+		    page ++;
+		} while (!last);
+	    }
+
+	    wb.write(new FileOutputStream(b2xFileName));
+	    wb.close();
+	} catch (Exception e){
+	    System.err.println("error in processing");
+	    e.printStackTrace();
+	}
+
+    }
 
     private static Concept getConcept(String id, List<Concept> concepts) {
 	for (Concept concept : concepts){
